@@ -210,46 +210,4 @@ class jugadoresController extends Controller
 
         return response()->json($data, 200);
     }
-
-    public function loginUser(Request $request)
-    {
-        // Validar los datos recibidos
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Datos inválidos',
-                'errors' => $validator->errors(),
-                'status' => 400
-            ], 400);
-        }
-
-        // Buscar al jugador por nombre de usuario (suponiendo que 'name_u' es el campo de nombre de usuario)
-        $jugador = Jugadores::where('name', $request->name)->first();
-
-        if (!$jugador) {
-            return response()->json([
-                'message' => 'Usuario no encontrado',
-                'status' => 404
-            ], 404);
-        }
-
-        // Verificar si la contraseña proporcionada coincide con la guardada (sin hash)
-        if ($jugador->password !== $request->password) {
-            return response()->json([
-                'message' => 'Contraseña incorrecta',
-                'status' => 401
-            ], 401);
-        }
-
-        // Si el login es exitoso, devolver los datos del jugador (o un token si lo prefieres)
-        return response()->json([
-            'message' => 'Login exitoso',
-            'jugador' => $jugador,
-            'status' => 200
-        ], 200);
-    }
 }

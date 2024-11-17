@@ -16,4 +16,9 @@ class Jugadores extends Model
         'phone',
         'password',
     ];
+
+    public function logueos()
+    {
+        return $this->hasMany(Logueo::class, 'jugador_id');
+    }
 }
