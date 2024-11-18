@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('personajes', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->integer('nivel');
+            $table->decimal('altura', 5, 2);
+            $table->foreignId('usuario_id')->constrained('jugadores')->onDelete('cascade');
+            $table->timestampsTz();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('personajes');
+    }
+};
