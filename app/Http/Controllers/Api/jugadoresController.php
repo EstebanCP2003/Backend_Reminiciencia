@@ -27,9 +27,9 @@ class jugadoresController extends Controller
     {
 
         $validador = Validator::make($request->all(), [
-            'name'=>'required|max:205',
+            'name'=>'required|max:205|unique:jugadores',
             'email'=>'required|email|unique:jugadores',
-            'phone'=>'required|digits:10',
+            'phone'=>'required|digits:10|unique:jugadores',
             'password'=>'required|string|min:8'
         ]);
 
