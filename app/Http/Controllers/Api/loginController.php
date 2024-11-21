@@ -31,14 +31,13 @@ class loginController extends Controller
             'status' => 200
         ], 200);
     }
-  
+
     public function loginUser(Request $request)
     {
         // Validación de los datos de entrada
         $request->validate([
             'name' => 'required|string',
-            'password' => 'required|string',
-            'rol' => 'required|string|in:master,jugador'  // Cambiar `role` a `rol`
+            'password' => 'required|string'
         ]);
 
         $jugador = Jugadores::where('name', $request->name)
@@ -52,7 +51,7 @@ class loginController extends Controller
             // Registrar el inicio de sesión en la tabla `logueo` o actualizar su estado a "activo"
             $logueo = Logueo::updateOrCreate(
                 ['jugador_id' => $jugador->id],
-                ['estado' => 'activo', 'rol' => $request->rol]  // Cambiar `role` a `rol`
+                ['estado' => 'activo']
             );
 
             return response()->json([

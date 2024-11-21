@@ -13,7 +13,6 @@ class Logueo extends Model
 
     protected $fillable = [
         'jugador_id',
-        'rol',
         'estado',
     ];
 

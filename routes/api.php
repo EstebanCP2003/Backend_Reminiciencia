@@ -43,6 +43,8 @@ Route::get('/personaje-caracteristicas/{id}', [PersonajeCaracteristicaController
 Route::post('/personaje-caracteristicas', [PersonajeCaracteristicaController::class, 'store']);
 Route::put('/personaje-caracteristicas/{id}', [PersonajeCaracteristicaController::class, 'update']);
 Route::delete('/personaje-caracteristicas/{id}', [PersonajeCaracteristicaController::class, 'destroy']);
+Route::post('/personaje-caracteristicas/batch', [PersonajeCaracteristicaController::class, 'storeBatch']);
+
 
 Route::get('/armor-class', [ArmorClassController::class, 'index']);
 Route::get('/armor-class/{id}', [ArmorClassController::class, 'show']);

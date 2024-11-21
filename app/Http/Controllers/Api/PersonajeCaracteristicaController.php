@@ -73,4 +73,22 @@ class PersonajeCaracteristicaController extends Controller
 
         return response()->json(['message' => 'Registro eliminado correctamente'], 200);
     }
+
+    public function storeBatch(Request $request)
+{
+    $validated = $request->validate([
+        '*.personaje_id' => 'required|exists:personajes,id',
+        '*.caracteristica_id' => 'required|exists:caracteristicas,id',
+        '*.puntos_base' => 'sometimes|integer|min:0',
+        '*.bonificador' => 'sometimes|integer|min:0',
+        '*.bonificador_competencia' => 'sometimes|integer|min:0',
+        '*.bonificador_equipo' => 'sometimes|integer|min:0',
+        '*.se_suma_al_dado' => 'sometimes|boolean',
+    ]);
+
+    $personajeCaracteristicas = PersonajeCaracteristica::insert($validated);
+
+    return response()->json(['message' => 'Datos guardados correctamente'], 201);
+}
+
 }
