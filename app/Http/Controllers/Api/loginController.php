@@ -22,8 +22,18 @@ class loginController extends Controller
             ], 404);
         }
 
-        // Obtener los detalles de los jugadores a partir de los IDs en `logueo`
-        $jugadoresLogueados = Jugadores::whereIn('id', $usuariosLogueados->pluck('jugador_id'))->get();
+        // Obtener los detalles de los jugadores a partir de los IDs en `logueo` (VIEJO)
+        // $jugadoresLogueados = Jugadores::whereIn('id', $usuariosLogueados->pluck('jugador_id'))->get();
+
+        // Obtener los detalles de los jugadores y añadir el rol desde la tabla `logueo` (NUEVO)
+        $jugadoresLogueados = $usuariosLogueados->map(function ($logueo) {
+            $jugador = Jugadores::find($logueo->jugador_id);
+            if ($jugador) {
+                $jugador->rol = $logueo->rol; // Agregar el rol al jugador
+            }
+            return $jugador;
+        });
+        /////////////////////////////////////////////////////////////////////7
 
         return response()->json([
             'message' => 'Usuarios logueados',

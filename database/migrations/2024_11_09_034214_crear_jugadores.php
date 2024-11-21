@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('jugadores', function (Blueprint $table){
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone',10);
+            $table->string('name')->unique();
+            $table->string('email')->unique();
+            $table->string('phone',10)->unique();
             $table->string('password',8);
             $table->timestamps();
         });
